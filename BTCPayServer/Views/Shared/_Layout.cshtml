@@ -1,22 +1,27 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject BTCPayServer.Services.BTCPayServerEnvironment env
 @inject BTCPayServer.HostedServices.NBXplorerDashboard dashboard
+@inject BTCPayServer.HostedServices.CssThemeManager themeManager
 @addTagHelper *, Meziantou.AspNetCore.BundleTagHelpers
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    @Html.Partial("GoogleAnalytics")
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BTCPay Server</title>
+    <title>BTCPayNow.net</title>
 
     @* CSS *@
+    <link href="@themeManager.BootstrapUri" rel="stylesheet" />
+    <link href="@themeManager.CreativeStartUri" rel="stylesheet" />
+
     <bundle name="wwwroot/bundles/main-bundle.min.css" />
 
     @* JS *@
@@ -38,9 +43,9 @@
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="~/">
                 <img src="~/img/logo.png" height="45">
-                @if (env.ChainType != NBXplorer.ChainType.Main)
+                @if (env.NetworkType != NBitcoin.NetworkType.Mainnet)
                 {
-                    <span class="badge badge-warning" style="font-size:10px;">@env.ChainType.ToString()</span>
+                    <span class="badge badge-warning" style="font-size:10px;">@env.NetworkType.ToString()</span>
                 }
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +60,7 @@
                             <li class="nav-item"><a asp-area="" asp-controller="Server" asp-action="ListUsers" class="nav-link js-scroll-trigger">Server settings</a></li>
                         }
                         <li class="nav-item"><a asp-area="" asp-controller="UserStores" asp-action="ListStores" class="nav-link js-scroll-trigger">Stores</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Apps" asp-action="ListApps" class="nav-link js-scroll-trigger">Apps</a></li>
                         <li class="nav-item"><a asp-area="" asp-controller="Invoice" asp-action="ListInvoices" class="nav-link js-scroll-trigger">Invoices</a></li>
                         <li class="nav-item">
                             <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="nav-link js-scroll-trigger">My settings</a>
@@ -74,8 +80,8 @@
 
     @RenderBody()
 
-    <footer class="bg-dark">
-        <div class="container text-right"><span style="font-size:8px;">@env.ToString()</span></div>
+    <footer class="siteFooter bg-dark text-white">
+        <div class="container text-right">@env.ToString()</div>
     </footer>
 
     @if (!dashboard.IsFullySynched())
