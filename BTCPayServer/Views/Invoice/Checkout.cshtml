@@ -1,4 +1,4 @@
-﻿@addTagHelper *, Meziantou.AspNetCore.BundleTagHelpers
+@addTagHelper *, Meziantou.AspNetCore.BundleTagHelpers
 @inject BTCPayServer.Services.LanguageService langService
 @model PaymentModel
 @{
@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    @Html.Partial("GoogleAnalytics")
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <meta charset="utf-8">
@@ -87,11 +88,15 @@
                                     hoverIntent: 5000
                                 });
                             });
-                        </script>
+                                </script>
                     </div>
-                    <div style="margin-top: 10px; text-align: right;" class="form-text small text-muted">
-                        <span>Powered by <a target="_blank" href="https://github.com/btcpayserver/btcpayserver">BTCPay Server</a></span>
+                    <div style="margin-top: 10px; text-align: left;" class="form-text small text-muted">
+                        <span><a target="_blank" href="https://localbitcoins.com/buy-bitcoins-online/?ch=quxi">No Bitcoins? All payments accepted here.</a></span></div><div style="margin-top: 10px; text-align: left;" class="form-text small text-muted"><span>Powered by <a target="_blank" href="https://btcpaynow.net">BTCPayNow.net</a></span></div>
                     </div>
+<div style="margin-top: 10px; text-align: left;" class="form-text small text-muted">
+                        
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -110,6 +115,7 @@
                 'es-ES': { translation: locales_es },
                 'ja-JP': { translation: locales_ja },
                 'fr-FR': { translation: locales_fr },
+                'pt': { translation: locales_pt },
                 'pt-BR': { translation: locales_pt_br },
                 'nl': { translation: locales_nl },
                 'cs-CZ': { translation: locales_cs },
